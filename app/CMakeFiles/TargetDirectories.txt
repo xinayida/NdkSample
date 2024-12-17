@@ -1,0 +1,3 @@
+/Users/wangwei/workspace/learn/NdkSample/app/CMakeFiles/ndksample.dir
+/Users/wangwei/workspace/learn/NdkSample/app/CMakeFiles/edit_cache.dir
+/Users/wangwei/workspace/learn/NdkSample/app/CMakeFiles/rebuild_cache.dir
