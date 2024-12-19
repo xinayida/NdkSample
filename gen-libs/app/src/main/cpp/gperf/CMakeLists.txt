@@ -30,6 +30,7 @@ set_target_properties(gperf
                       PROPERTIES
                       LIBRARY_OUTPUT_DIRECTORY
                       "${distribution_DIR}/gperf/lib/${ANDROID_ABI}")
+
 add_custom_command(TARGET gperf POST_BUILD
                    COMMAND "${CMAKE_COMMAND}" -E
                    copy "${CMAKE_CURRENT_SOURCE_DIR}/src/gperf.h"

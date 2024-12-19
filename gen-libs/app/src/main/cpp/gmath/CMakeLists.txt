@@ -22,13 +22,16 @@ cmake_minimum_required(VERSION 3.22.1)
 
 set(CMAKE_VERBOSE_MAKEFILE on)
 
-add_library(gmath STATIC src/gmath.c)
+add_library(gmath SHARED src/gmath.c)
+
+target_link_libraries(gmath log)
+
 
 # copy out the lib binary... need to leave the static lib around to pass gradle check
 set(distribution_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../distribution)
 set_target_properties(gmath
                       PROPERTIES
-                      ARCHIVE_OUTPUT_DIRECTORY
+                      LIBRARY_OUTPUT_DIRECTORY
                       "${distribution_DIR}/gmath/lib/${ANDROID_ABI}")
 
 # copy out lib header file...
@@ -40,4 +43,3 @@ add_custom_command(TARGET gmath POST_BUILD
 #                   COMMAND "${CMAKE_COMMAND}" -E
 #                   remove_directory "${CMAKE_CURRENT_BINARY_DIR}"
                    COMMENT "Copying gmath to output directory")
-

@@ -27,18 +27,19 @@
 #endif
 
 #define LOGE(...) \
-  ((void)__android_log_print(ANDROID_LOG_ERROR, "gmath::", __VA_ARGS__))
-
+  ((void)__android_log_print(ANDROID_LOG_ERROR, "gen-libs::", __VA_ARGS__))
+#define LOGI(...) \
+  ((void)__android_log_print(ANDROID_LOG_INFO, "gen-libs::", __VA_ARGS__))
 /*
  * return 2 ^ n with multiplication implementation
  */
 GMATH_EXPORT unsigned gpower(unsigned n) {
-  if (n == 0) return 1;
-  if (n > 31) {
-    LOGE("error from power(%d): integer overflow", n);
-    return 0;
-  }
-  unsigned val = gpower(n >> 1) * gpower(n >> 1);
-  if (n & 1) val *= 2;
-  return val;
+    if (n == 0) return 1;
+    if (n > 31) {
+        LOGE("error from power(%d): integer overflow", n);
+        return 0;
+    }
+    unsigned val = gpower(n >> 1) * gpower(n >> 1);
+    if (n & 1) val *= 2;
+    return val;
 }
