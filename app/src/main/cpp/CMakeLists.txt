@@ -11,6 +11,22 @@ cmake_minimum_required(VERSION 3.22.1)
 # build script scope).
 project("ndksample")
 
+# configure import libs
+set(distribution_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../distribution)
+
+add_library(lib_gmath STATIC IMPORTED)
+set_target_properties(lib_gmath PROPERTIES IMPORTED_LOCATION
+        ${distribution_DIR}/gmath/lib/${ANDROID_ABI}/libgmath.a)
+
+# ${ANDROID_ABI} is handy for our purpose here. Probably this ${ANDROID_ABI} is
+# the most valuable thing of this sample, the rest are pretty much normal cmake
+add_library(lib_gperf SHARED IMPORTED)
+set_target_properties(lib_gperf PROPERTIES IMPORTED_LOCATION
+        ${distribution_DIR}/gperf/lib/${ANDROID_ABI}/libgperf.so)
+
+# build application's shared lib
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
@@ -26,9 +42,15 @@ project("ndksample")
 # used in the AndroidManifest.xml file.
 add_library(${CMAKE_PROJECT_NAME} SHARED
         # List C/C++ source files with relative paths to this CMakeLists.txt.
+        hello-libs.cpp
         native-lib.cpp
         jni-callback.cpp
 )
+
+
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+        ${distribution_DIR}/gmath/include
+        ${distribution_DIR}/gperf/include)
 
 # Specifies libraries CMake should link to your target library. You
 # can link libraries from various origins, such as libraries defined in this
@@ -36,4 +58,6 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
 target_link_libraries(${CMAKE_PROJECT_NAME}
         # List libraries link to the target library
         android
+        lib_gmath
+        lib_gperf
         log)

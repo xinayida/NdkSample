@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "NdkSample"
 include(":app")
+//include(":gen-libs")

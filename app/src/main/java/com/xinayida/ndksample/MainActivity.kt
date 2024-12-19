@@ -35,13 +35,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        text = callbackFromJNI()
-        startTicks()
+        text = "The calculation took " + measureTicks() + " ticks"
+//        text = callbackFromJNI()
+//        startTicks()
     }
 
     override fun onPause() {
         super.onPause()
-        stopTicks()
+//        stopTicks()
     }
 
     /*
@@ -72,6 +73,7 @@ class MainActivity : AppCompatActivity() {
     external fun callbackFromJNI(): String
     external fun startTicks()
     external fun stopTicks()
+    external fun measureTicks(): Long
 
     companion object {
         // Used to load the 'ndksample' library on application startup.
